@@ -157,7 +157,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
       <div className="absolute inset-0 z-0">
         {!imageError ? (
           <img
-            src="/assets/aistudio/hero_section_background_01865031.JPG"
+            src={`${import.meta.env.BASE_URL}assets/aistudio/hero_section_background_01865031.JPG`}
             alt="Кластер футуристичных модульных резиденций SKY RIFT на стальных ферменных опорах над горным ущельем"
             referrerPolicy="no-referrer"
             onError={() => setImageError(true)}

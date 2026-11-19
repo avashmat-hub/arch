@@ -177,7 +177,7 @@ export const InteriorFloorplanSection: React.FC<InteriorFloorplanSectionProps> =
             <div className="lg:col-span-8 relative min-h-[290px] sm:min-h-[340px] overflow-hidden border-b lg:border-b-0 lg:border-r border-[#D1D5DB]/15">
               {/* Background Canyon Backdrop visible through 270° glass */}
               <img
-                src="/assets/aistudio/hero_section_background_01865031.JPG"
+                src={`${import.meta.env.BASE_URL}assets/aistudio/hero_section_background_01865031.JPG`}
                 alt="Вид из панорамного окна 270 градусов на горное ущелье"
                 referrerPolicy="no-referrer"
                 className={`absolute inset-0 w-full h-full object-cover object-right transition-all duration-500 ${

@@ -1099,7 +1099,7 @@ export const CapsuleConfigurator3D: React.FC<CapsuleConfigurator3DProps> = ({
             ) : (
               <div className="w-full h-full min-h-[460px] flex flex-col items-center justify-center p-8 text-center bg-[#0D1118]">
                 <img
-                  src="/assets/aistudio/hero_section_background_01865031.JPG"
+                  src={`${import.meta.env.BASE_URL}assets/aistudio/hero_section_background_01865031.JPG`}
                   alt="Предпросмотр модуля SKY RIFT"
                   referrerPolicy="no-referrer"
                   className="max-w-md w-full rounded-lg border border-[#D1D5DB]/20 mb-4 opacity-90"

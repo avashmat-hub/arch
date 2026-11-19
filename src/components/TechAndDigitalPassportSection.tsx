@@ -358,7 +358,7 @@ export const TechAndDigitalPassportSection: React.FC = () => {
                     {/* Interactive Smartphone AR Viewfinder */}
                     <div className="md:col-span-7 relative rounded-2xl overflow-hidden border-2 border-[#D1D5DB]/30 bg-[#070A0E] aspect-[16/11]">
                       <img
-                        src="/assets/aistudio/hero_section_background_01865031.JPG"
+                        src={`${import.meta.env.BASE_URL}assets/aistudio/hero_section_background_01865031.JPG`}
                         alt="Симуляция AR-примерки капсулы SKY RIFT на горном склоне"
                         referrerPolicy="no-referrer"
                         className="w-full h-full object-cover object-left-bottom brightness-[0.68] contrast-[1.08]"
@@ -509,7 +509,7 @@ export const TechAndDigitalPassportSection: React.FC = () => {
                     {/* Live Room Response Simulation */}
                     <div className="md:col-span-6 relative rounded-xl overflow-hidden border border-[#D1D5DB]/20 min-h-[250px] flex flex-col justify-between p-4">
                       <img
-                        src="/assets/aistudio/hero_section_background_01865031.JPG"
+                        src={`${import.meta.env.BASE_URL}assets/aistudio/hero_section_background_01865031.JPG`}
                         alt="Интерьер капсулы под управлением SKY RIFT OS"
                         referrerPolicy="no-referrer"
                         className="absolute inset-0 w-full h-full object-cover object-center transition-all duration-300"
