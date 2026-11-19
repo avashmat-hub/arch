@@ -1,0 +1,6 @@
+{
+  "name": "SKY RIFT — Футуристичные модульные резиденции",
+  "description": "Архитектурно-строительная компания SKY RIFT: проектирование и возведение автономных модульных резиденций и горных эко-отелей на сложных скалистых склонах.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
