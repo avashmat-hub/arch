@@ -11,7 +11,9 @@ import {
 } from 'lucide-react';
 import { SpecularCard } from './SpecularCard';
 import { SkyRiftLogo } from './SkyRiftLogo';
+import { GoogleSheetsSyncPanel } from './GoogleSheetsSyncPanel';
 import type { ConfiguratorTransferData } from './CapsuleConfigurator3D';
+import type { SkyRiftLeadPayload } from '../lib/googleSheets';
 
 type AutonomyLevel = 'base' | 'extended' | 'full';
 type LogisticsType = 'standard' | 'cliff' | 'helicopter';
@@ -109,8 +111,25 @@ export const CalculatorAuditSection: React.FC<CalculatorAuditSectionProps> = ({
   const [isDragging, setIsDragging] = useState(false);
   const [formError, setFormError] = useState<string | null>(null);
   const [submitted, setSubmitted] = useState(false);
+  const [pendingSheetsExport, setPendingSheetsExport] = useState(false);
 
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const currentLeadPayload: SkyRiftLeadPayload = {
+    date: new Date().toLocaleString('ru-RU'),
+    clientName: name.trim() || 'Расчет без имени',
+    contact: contact.trim() || 'Не указан',
+    moduleCount,
+    autonomyLabel: `${autonomyOpt.label} (${autonomyOpt.days})`,
+    logisticsLabel: logisticsOpt.label,
+    budgetMln: totalBudgetMln.toFixed(1),
+    productionWeeks,
+    gps: gps.trim() || 'Не указаны',
+    fileName: uploadedFile ? uploadedFile.name : 'Нет файла',
+    configSummary: transferredConfig
+      ? `Обшивка: ${transferredConfig.shell}, ферма: ${transferredConfig.stiltHeight.toFixed(1)} м, автономия: ${transferredConfig.autonomyDays} дн.`
+      : 'Стандартная конфигурация M-41',
+  };
 
   const validateAndSetFile = (file: File | null) => {
     if (!file) return;
@@ -376,19 +395,28 @@ export const CalculatorAuditSection: React.FC<CalculatorAuditSectionProps> = ({
                         </span>
                       </div>
                     </div>
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setSubmitted(false);
-                        setName('');
-                        setContact('');
-                        setGps('');
-                        setUploadedFile(null);
-                      }}
-                      className="px-5 py-2.5 rounded-lg text-xs font-semibold text-white bg-[#2F3942] border border-[#D1D5DB]/25 hover:border-[#00F0FF] transition-colors cursor-pointer"
-                    >
-                      Отправить еще один участок
-                    </button>
+                    <div className="flex flex-wrap items-center justify-center gap-3">
+                      <button
+                        type="button"
+                        onClick={() => setPendingSheetsExport(true)}
+                        className="px-5 py-2.5 rounded-lg text-xs font-semibold text-[#0B0E14] bg-[#00F0FF] hover:bg-[#33f3ff] transition-colors cursor-pointer"
+                      >
+                        Сохранить в Google Sheets
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setSubmitted(false);
+                          setName('');
+                          setContact('');
+                          setGps('');
+                          setUploadedFile(null);
+                        }}
+                        className="px-5 py-2.5 rounded-lg text-xs font-semibold text-white bg-[#2F3942] border border-[#D1D5DB]/25 hover:border-[#00F0FF] transition-colors cursor-pointer"
+                      >
+                        Отправить еще один участок
+                      </button>
+                    </div>
                   </div>
                 ) : (
                   <form onSubmit={handleSubmit} className="flex-1 flex flex-col justify-between gap-6" noValidate>
@@ -574,6 +602,13 @@ export const CalculatorAuditSection: React.FC<CalculatorAuditSectionProps> = ({
               </SpecularCard>
             </div>
           </div>
+
+          {/* Google Sheets CRM & Calculations Sync Panel */}
+          <GoogleSheetsSyncPanel
+            currentLeadPayload={currentLeadPayload}
+            pendingSubmitExport={pendingSheetsExport}
+            onConsumePendingExport={() => setPendingSheetsExport(false)}
+          />
         </div>
       </section>
 
